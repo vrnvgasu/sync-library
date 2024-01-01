@@ -47,11 +47,3 @@ func (i *Item) AddChild(item *Item) {
 
 	i.Items[item.Hash()] = item
 }
-
-func (i *Item) hasChildren() bool {
-	if FILE == i.ItemType {
-		return false
-	}
-
-	return len(i.Items) > 0
-}
