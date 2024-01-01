@@ -3,9 +3,21 @@ package structure
 import (
 	"go-basic-final/internal/file"
 	"os"
+	"sync"
 )
 
-func Synchronization(mainDir string, subDir string) error {
+type Synchronization interface {
+	Synchronize(mainDir string, subDir string) error
+}
+
+type SynchronizationImp struct {
+	sync.Mutex
+}
+
+func (s *SynchronizationImp) Synchronize(mainDir string, subDir string) error {
+	s.Lock()
+	defer s.Unlock()
+
 	mainStruct, err := GenStructure(mainDir)
 	if err != nil {
 		return err
